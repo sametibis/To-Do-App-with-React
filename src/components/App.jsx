@@ -49,7 +49,6 @@ function App() {
             <Fragment key={items.indexOf(item)}>
               <h5> {item.heading} </h5>
               <li> {item.description} </li>
-              <hr />
             </Fragment>
           ))}
         </ul>
