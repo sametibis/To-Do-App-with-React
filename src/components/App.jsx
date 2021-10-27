@@ -1,58 +1,37 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
+import ToDoForm from './ToDoForm'
+import ToDoItem from './ToDoItem'
 
 function App() {
-  // input text state
-  const [toDo, setToDo] = useState({ heading: '', description: '' })
-
   // toDo list state
   const [items, setItems] = useState([])
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    setToDo({ ...toDo, [name]: value })
-  }
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (toDo) => {
+    if (toDo.heading === '') {
+      toDo.heading = 'Untitled'
+    }
     toDo.description !== '' && setItems([toDo, ...items])
-    setToDo({ heading: '', description: '' })
-    event.preventDefault()
   }
 
-  const { heading, description } = toDo
+  const deleteItem = (id) => {
+    setItems(items.filter((item, index) => index !== id))
+  }
 
   return (
     <div className='container'>
       <div className='heading'>
         <h1>To-Do List</h1>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className='form'>
-          <input
-            onChange={handleChange}
-            name='heading'
-            value={heading}
-            placeholder='To Do Heading (*)'
-            type='text'
-          />
-          <input
-            onChange={handleChange}
-            name='description'
-            value={description}
-            placeholder='To Do Description'
-            type='text'
-          />
-          <button type='submit'>
-            <span>Add</span>
-          </button>
-        </div>
-      </form>
+      <ToDoForm handleSubmit={handleSubmit} />
       <div>
         <ul>
-          {items.map((item) => (
-            <Fragment key={items.indexOf(item)}>
-              <h5> {item.heading} </h5>
-              <li> {item.description} </li>
-            </Fragment>
+          {items.map((item, index) => (
+            <ToDoItem
+              key={index}
+              id={index}
+              deleteItem={deleteItem}
+              item={item}
+            />
           ))}
         </ul>
       </div>
