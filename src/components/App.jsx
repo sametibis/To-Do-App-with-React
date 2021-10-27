@@ -1,7 +1,10 @@
 import React, { Fragment, useState } from 'react'
 
 function App() {
+  // input text state
   const [toDo, setToDo] = useState({ heading: '', description: '' })
+
+  // toDo list state
   const [items, setItems] = useState([])
 
   const handleChange = (event) => {
@@ -10,7 +13,7 @@ function App() {
   }
 
   const handleSubmit = (event) => {
-    setItems([...items, toDo])
+    toDo.description !== '' && setItems([toDo, ...items])
     setToDo({ heading: '', description: '' })
     event.preventDefault()
   }
@@ -28,7 +31,7 @@ function App() {
             onChange={handleChange}
             name='heading'
             value={heading}
-            placeholder='To Do Heading'
+            placeholder='To Do Heading (*)'
             type='text'
           />
           <input

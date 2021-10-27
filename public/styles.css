@@ -66,10 +66,12 @@ button {
   padding-bottom: 3px;
   border-radius: 5px;
   background-color: #ffeaa7;
+  transition: font-size 0.2s;
 }
 
 button:hover {
   cursor: pointer;
+  font-size: large;
 }
 
 button span {
